@@ -1,0 +1,27 @@
+.link {
+  text-decoration: none;
+  text-align: start;
+  color: #fff;
+
+  .btn {
+    padding: 5px 10px;
+    width: 100%;
+    font-size: 16px;
+    justify-content: start;
+    text-transform: inherit;
+    gap: 10px;
+
+    .name {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px 0 0 0;
+      letter-spacing: 1px;
+    }
+
+    .MuiButton-startIcon {
+      margin: 0;
+      font-size: 18px;
+    }
+  }
+}
