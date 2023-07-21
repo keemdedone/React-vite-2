@@ -26,7 +26,7 @@ const darkTheme = createTheme({
 
 function App() {
   const [loggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const storedLoginStatus = localStorage.getItem("isLoggedIn") || undefined;
 
   const handleLogin = (response: login) => {
@@ -49,7 +49,7 @@ function App() {
   };
 
   const stillLogin = (token: string) => {
-    setLoading(false);
+    setIsLoading(false);
     fetch(`${backend_url}/user/still`, {
       method: "POST",
       headers: {
@@ -63,7 +63,7 @@ function App() {
         if (result == "yes") {
           setIsLoggedIn(true);
           setTimeout(() => {
-            setLoading(true);
+            setIsLoading(true);
           }, 1000);
         } else {
           setIsLoggedIn(false);
@@ -81,9 +81,25 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <BrowserRouter>
-        {!loading ? (
-          <Box>Loading...</Box>
-        ) : !loggedIn ? (
+        {isLoading ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#222",
+              color: "#fff",
+              minHeight: "100vh",
+            }}
+          >
+            <div className="lds-ellipsis">
+              <div className="lds-ellipsi"></div>
+              <div className="lds-ellipsi"></div>
+              <div className="lds-ellipsi"></div>
+              <div className="lds-ellipsi"></div>
+            </div>
+          </Box>
+        ) : !loggedIn && !isLoading ? (
           <Routes>
             <Route path="/" element={<Navigate to="/login" />} />
             <Route path="*" element={<Navigate to="/login" />} />
