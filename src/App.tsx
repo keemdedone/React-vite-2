@@ -41,37 +41,50 @@ function App() {
   };
 
   const checkTokenSession = () => {
+    // if (storedLoginStatus !== undefined) {
+    //   stillLogin(storedLoginStatus);
+    // } else {
+    //   setIsLoggedIn(false);
+    // }
+
     if (storedLoginStatus !== undefined) {
-      stillLogin(storedLoginStatus);
+      setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
     }
   };
 
-  const stillLogin = (token: string) => {
-    setIsLoading(false);
-    fetch(`${backend_url}/user/still`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ stCode: token }),
-    })
-      .then((response) => response.text())
-      .then((result) => {
-        console.log(result);
-        if (result == "yes") {
-          setIsLoggedIn(true);
-          setTimeout(() => {
-            setIsLoading(true);
-          }, 1000);
-        } else {
-          setIsLoggedIn(false);
-        }
-      })
-      .catch((error) => {
-        alert("Error check still login : " + error);
-      });
+  // const stillLogin = (token: string) => {
+  //   if (token) {
+  //     delayTime(setIsLoading(true));
+  //     fetch(`${backend_url}/user/still`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ stCode: token }),
+  //     })
+  //       .then((response) => response.text())
+  //       .then((result) => {
+  //         if (result == "OK") {
+  //           setIsLoggedIn(true);
+  //           delayTime(setIsLoading(false));
+  //         } else {
+  //           setIsLoggedIn(false);
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         alert("Error check still login : " + error);
+  //       });
+  //   } else {
+  //     setIsLoggedIn(false);
+  //   }
+  // };
+
+  const delayTime = (func: any) => {
+    setTimeout(() => {
+      func;
+    }, 1000);
   };
 
   useEffect(() => {
